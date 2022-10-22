@@ -1,0 +1,46 @@
+<%- include('../partials/header'); %>
+  <!-- <script type="text/javascript" src="wv/wallet_address_validator.js"></script> -->
+  <script type="text/javascript">
+    function validateForm() {
+      let x = document.forms["loginform"]["tronWalletAddress"].value;
+      if (x == "") {
+        //alert("wallet address must be filled out by valid address");
+        $("#error_div").text("wallet address must be filled out by valid address");
+        $("#error_div").fadeIn("slow");
+        return false;
+      } else {
+        $.post("api/validate/wallet-address", { tronWalletAddress: x }, (data) => {
+          if (data.status == 200)
+            document.forms["loginform"].submit();
+          else {
+            $("#error_div").text(data.msg);
+            $("#error_div").fadeIn("slow");
+          }
+        })
+      }
+      //
+      return true;
+    }
+  </script>
+  <div class="page">
+    <div class="login-box">
+      <form id="loginform" role="form" action="/sign-in" method="post">
+        <div class="mb-3">
+          <h1>Anticipate and enjoy</h1>
+          <br />
+          <label for="tronWalletAddress" class="form-label">Tron Wallet Address</label>
+          <input name="tronWalletAddress" type="text" class="form-control" id="tronWalletAddress" placeholder="">
+        </div>
+
+        <div class="mb-3 float-end">
+
+
+        </div>
+        <button type="button" onclick="validateForm()" class="btn btn-success">Enjoy</button>
+        <input type="submit" value="Submit">
+      </form>
+      <div id="error_div" style="visibility: hide ;color: red;"></div>
+    </div>
+  </div>
+
+  <%- include('../partials/footer'); %>
