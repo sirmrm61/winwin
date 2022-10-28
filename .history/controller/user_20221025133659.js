@@ -10,15 +10,17 @@ router.post('/sign-in',async  (req, res) => {
     var valid = wallet_Validator.validate(uname, 'tron');
     if (valid){
         var user=await models.user.findAll({where:{tronWallet:req.body.tronWalletAddress}});
-        if(user == undefined ||user == null || user.length ==0 ){
+        if(user == null || user == undefined ){
             user=await models.user.create({tronWallet:req.body.tronWalletAddress});
-            console.log("create user:"+user);
+            console.log(user);
             res.render('pages/profile/home');
+            //useres.class.create()
         }else
         res.render('pages/profile/home');
     }
     else
         res.render('pages/error/addressNotValid')
+    console.log(req.body);
 })
 //this method use validate wallet address befor submit form 
 router.post('/api/validate/wallet-address', (req, res) => {
@@ -28,5 +30,6 @@ router.post('/api/validate/wallet-address', (req, res) => {
         res.status(200).send({status:200,msg:"Address Is Valid"});
     else
     res.status(200).send({status:401,msg:"Address Is Not Valid"});
+    console.log(req.body);
 })
 module.exports = router;

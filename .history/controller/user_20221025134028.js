@@ -10,7 +10,7 @@ router.post('/sign-in',async  (req, res) => {
     var valid = wallet_Validator.validate(uname, 'tron');
     if (valid){
         var user=await models.user.findAll({where:{tronWallet:req.body.tronWalletAddress}});
-        if(user == undefined ||user == null || user.length ==0 ){
+        if(user == null || user == undefined ){
             user=await models.user.create({tronWallet:req.body.tronWalletAddress});
             console.log("create user:"+user);
             res.render('pages/profile/home');

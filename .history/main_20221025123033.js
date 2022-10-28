@@ -1,4 +1,3 @@
-require('dotenv').config()
 const express = require('express')
 const path = require('path');
 const app = express()
@@ -31,23 +30,22 @@ app.get('/', (req, res) => {
   })
 })
 app.use('', userPage);
-
 async function assertDatabaseConnectionOk() {
-  console.log(`Checking database connection...`);
-  try {
-    await sequelize.authenticate();
-    console.log('Database connection OK!');
-  } catch (error) {
-    console.log('Unable to connect to the database:');
-    console.log(error.message);
-    process.exit(1);
-  }
+	console.log(`Checking database connection...`);
+	try {
+		await sequelize.authenticate();
+		console.log('Database connection OK!');
+	} catch (error) {
+		console.log('Unable to connect to the database:');
+		console.log(error.message);
+		process.exit(1);
+	}
 }
-async function init() {
+async function init(){
   await assertDatabaseConnectionOk();
-  app.listen(process.env.appPort, () => {
-    console.log(`Express server started on port ${process.env.appPort}. Try some routes, such as '/api/users'.`);
-  })
+  app.listen(process.env.appPort,() => {
+		console.log(`Express server started on port ${process.env.appPort}. Try some routes, such as '/api/users'.`);
+	})
 }
-console.log(process.env.DB_NAME);
+
 init();
