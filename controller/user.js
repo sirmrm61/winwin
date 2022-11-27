@@ -13,9 +13,9 @@ router.post('/sign-in',async  (req, res) => {
         if(user == undefined ||user == null || user.length ==0 ){
             user=await models.user.create({tronWallet:req.body.tronWalletAddress});
             console.log("create user:"+user);
-            res.render('pages/profile/home');
+            res.render('pages/profile/home',{security:"test",twa:req.body.tronWalletAddress});
         }else
-        res.render('pages/profile/home');
+        res.render('pages/profile/home',{security:"test",twa:req.body.tronWalletAddress});
     }
     else
         res.render('pages/error/addressNotValid')
