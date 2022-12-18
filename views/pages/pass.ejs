@@ -1,0 +1,19 @@
+<%- include('../partials/header'); %>
+<div class="page">
+    <div class="login-box">
+      <form id="loginform" role="form" action="/checkpassword?addr=<%= addr %>&user=<%= user %>" method="post">
+        <div class="mb-3">
+          <h1>Password's Your Wallet</h1>
+          <br />
+          <label for="Password" class="form-label">Password</label>
+          <input name="Password" type="password" class="form-control" id="Password" placeholder="">
+        </div>
+        <div class="mb-3 float-end">
+        </div>
+        <button type="button" onclick="validateForm()" class="btn btn-success">Enjoy</button>
+        <input type="submit" value="Submit">
+      </form>
+      <div id="error_div" style="visibility: hide ;color: red;"></div>
+    </div>
+  </div>
+  <%- include('../partials/footer'); %>
